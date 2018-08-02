@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Try Catch</title>
+    <link rel="stylesheet" type="text/css" href="data/style.css" />
+</head>
+
+<body>
+    <div class="wrap">
+        <nav>
+            <h1>Try Catch</h1>
+            <button id="button0">
+                Error caught
+            </button>
+            <button id="button1">
+                Error not caught
+            </button>
+            <button id="button3">
+                reset
+            </button>
+        </nav>
+        <div id="content">
+            <p class="empty">Content goes here.</p>
+        </div>
+    </div>
+    <script>
+        const $content = document.querySelector('#content');
+        document.querySelector('#button0').addEventListener('click', () => {
+            try {
+                throw new Error('some message');
+            } catch (err) {
+                $content.innerHTML = err;
+            }
+        });
+
+        document.querySelector('#button1').addEventListener('click', () => {
+            throw new Error('some message');
+        });
+        document.querySelector('#button3').addEventListener('click', () => {
+            $content.innerHTML = 'Content goes here';
+        });
+    </script>
+</body>
+
+</html>

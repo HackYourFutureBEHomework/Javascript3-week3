@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Box Race</title>
+    <link rel="stylesheet" type="text/css" href="data/style.css" />
+</head>
+
+<body>
+    <div class="wrap">
+        <h1>Box Race (New School)
+        </h1>
+        <nav>
+            <button id="button1">
+                setTimeout
+            </button>
+            <button id="button2">
+                requestAnimationFrame
+            </button>
+        </nav>
+        <div id="content">
+            <p class="empty">May the best box win.</p>
+        </div>
+    </div>
+    <script>
+        class Box {
+            constructor(color) {
+                this.color = color;
+                this.position = 0;
+            }
+
+            render($parent) {
+                this.$box = document.createElement('div');
+                this.$box.className = 'box';
+                this.$box.style.backgroundColor = this.color;
+                $parent.appendChild(this.$box);
+            }
+
+            move(callback) {
+                this.position += 1;
+                this.$box.style.left = this.position + 'px';
+                if (this.position > 1000) {
+                    this.$box.remove();
+                } else {
+                    callback(callback);
+                }
+            }
+        }
+
+        document.querySelector('#button1').addEventListener('click', () => {
+            const $content = document.querySelector('#content');
+            const box = new Box('red');
+            box.render($content);
+            box.move((callback) => setTimeout(box.move.bind(box, callback), 0));
+            // function move(){
+            //     box.move();
+            //     setTimeout(() => { 
+            //         move();
+            //     }, 0);
+            // }
+        });
+        document.querySelector('#button2').addEventListener('click', () => {
+            const $content = document.querySelector('#content');
+            const box = new Box('blue');
+            box.render($content);
+            box.move((callback) => requestAnimationFrame(box.move.bind(box, callback), 0));
+        });
+    </script>
+</body>
+
+</html>
